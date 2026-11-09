@@ -1,0 +1,5 @@
+.env
+/program/
+/private-materials/
+/node_modules/
+.DS_Store

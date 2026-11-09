@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#102b35">
+    <meta name="description" content="Programma, paper e timer per i session chair di IIR 2026.">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="IIR2026 Chair Hub">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <title>IIR2026 Chair Hub</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+    <link rel="manifest" href="./manifest.webmanifest">
+    <link rel="stylesheet" href="styles.css?v=20261109-8">
+    <script src="app.js?v=20261109-8" defer></script>
+  </head>
+  <body>
+    <section class="gate" id="gate" aria-labelledby="gateTitle">
+      <div class="gate-card">
+        <img class="official-logo official-logo-gate" src="./assets/iir2026-logo.jpg" alt="IIR 2026">
+        <p class="eyebrow">Roma · 12–14 novembre 2026</p>
+        <h1 id="gateTitle">Chair Hub</h1>
+        <p class="gate-copy">Programma, paper e strumenti per la tua sessione.</p>
+        <form id="unlockForm" novalidate>
+          <label for="passwordInput">Password di accesso</label>
+          <div class="password-field">
+            <input id="passwordInput" name="password" type="password" autocomplete="current-password" required autofocus>
+            <button class="reveal-password" id="togglePassword" type="button" aria-label="Mostra password">Mostra</button>
+          </div>
+          <label class="remember-password" for="rememberPassword"><input id="rememberPassword" type="checkbox" checked> <span>Ricorda su questo dispositivo</span></label>
+          <button class="button button-primary unlock-button" type="submit" id="unlockButton">Apri Chair Hub <span aria-hidden="true">↗</span></button>
+          <p class="gate-message" id="gateMessage" role="status" aria-live="polite"></p>
+        </form>
+        <p class="gate-footnote"><span aria-hidden="true">⌑</span> Contenuti riservati, decifrati sul dispositivo.</p>
+      </div>
+      <div class="gate-orbit orbit-one" aria-hidden="true"></div>
+      <div class="gate-orbit orbit-two" aria-hidden="true"></div>
+    </section>
+
+    <div class="app-shell" id="appShell" hidden>
+      <header class="topbar">
+        <a class="brand-lockup" href="#" aria-label="IIR 2026 Chair Hub, programma" data-page-link="program">
+          <img class="official-logo official-logo-nav" src="./assets/iir2026-logo.jpg" alt="IIR 2026">
+          <span class="brand-title">CHAIR HUB<small>Roma · 12–14 nov</small></span>
+        </a>
+        <nav class="desktop-nav page-nav" aria-label="Sezioni principali">
+          <button type="button" class="nav-button active" data-page-link="program"><span class="nav-icon">▦</span> <span data-i18n="programTab">Programma</span></button>
+          <button type="button" class="nav-button" data-page-link="papers"><span class="nav-icon">▤</span> <span data-i18n="papersTab">Paper</span></button>
+          <button type="button" class="language-toggle" data-language-toggle aria-label="Passa all’inglese" title="Passa all’inglese">🇬🇧</button>
+        </nav>
+        <section class="timer-bar" aria-label="Cronometro della presentazione">
+          <div class="timer-context"><span class="live-dot" aria-hidden="true"></span><span id="timerContext">Pronto per la sessione</span></div>
+          <div class="timer-main">
+            <time class="timer-display" id="timerDisplay" aria-live="off">15:00</time>
+            <div class="timer-controls">
+              <button class="timer-control timer-play" type="button" id="timerToggle" aria-label="Avvia cronometro" title="Avvia cronometro">▶</button>
+              <button class="timer-control" type="button" id="timerReset" aria-label="Azzera cronometro" title="Azzera cronometro">↺</button>
+              <button class="timer-control stage-launch" type="button" id="stageLaunch" aria-label="Apri schermo relatore" title="Schermo relatore">⛶</button>
+            </div>
+          </div>
+          <div class="timer-track" aria-hidden="true"><span id="timerProgress"></span></div>
+        </section>
+      </header>
+
+      <main id="mainContent" tabindex="-1"></main>
+
+      <nav class="mobile-nav page-nav" aria-label="Sezioni principali">
+        <button type="button" class="nav-button active" data-page-link="program"><span class="nav-icon">▦</span> <span data-i18n="programTab">Programma</span></button>
+        <button type="button" class="nav-button" data-page-link="papers"><span class="nav-icon">▤</span> <span data-i18n="papersTab">Paper</span></button>
+        <button type="button" class="language-toggle" data-language-toggle aria-label="Passa all’inglese" title="Passa all’inglese">🇬🇧</button>
+      </nav>
+    </div>
+
+    <section class="pdf-viewer" id="pdfViewer" hidden role="dialog" aria-modal="true" aria-labelledby="pdfViewerTitle">
+      <header class="pdf-viewer-bar">
+        <button class="pdf-back" id="pdfBack" type="button"><span aria-hidden="true">←</span><span>Torna ai contenuti</span></button>
+        <h2 id="pdfViewerTitle">Paper</h2>
+        <div class="pdf-viewer-actions">
+          <a class="pdf-viewer-action" id="pdfOpenNew" target="_blank" rel="noopener noreferrer">Apri scheda</a>
+          <a class="pdf-viewer-action" id="pdfDownload" download>Scarica</a>
+        </div>
+      </header>
+      <iframe id="pdfFrame" title="Anteprima del paper" src="about:blank"></iframe>
+    </section>
+
+    <div class="stage" id="stage" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Schermo per il presentatore">
+      <button class="stage-close" id="stageClose" type="button" aria-label="Chiudi schermo relatore">✕</button>
+      <div class="stage-brand"><img class="official-logo official-logo-stage" src="./assets/iir2026-logo.jpg" alt="IIR 2026"><span>SESSION CHAIR</span></div>
+      <div class="stage-center">
+        <p class="stage-kicker" id="stageKicker">IIR 2026</p>
+        <time class="stage-clock" id="stageClock">15:00</time>
+        <p class="stage-message" id="stageMessage">Pronto</p>
+      </div>
+      <div class="stage-footer" id="stageFooter">IIR 2026 · ROMA</div>
+    </div>
+  </body>
+</html>
