@@ -100,15 +100,21 @@ const pdfFrame = document.querySelector('#pdfFrame');
 const pdfOpenNew = document.querySelector('#pdfOpenNew');
 const pdfDownload = document.querySelector('#pdfDownload');
 let pdfReturnFocus = null;
-const REMEMBERED_PASSWORD_KEY = 'iir2026-chair-hub-password';
-const REMEMBER_PASSWORD_CHOICE_KEY = 'iir2026-chair-hub-remember-password';
+const APP_STORAGE_NAMESPACE = `iir2026-chair-hub:${location.pathname.replace(/\/+$/, '') || '/'}`;
+const REMEMBERED_PASSWORD_KEY = `${APP_STORAGE_NAMESPACE}:password`;
+const REMEMBER_PASSWORD_CHOICE_KEY = `${APP_STORAGE_NAMESPACE}:remember-password`;
+const LEGACY_REMEMBERED_PASSWORD_KEY = 'iir2026-chair-hub-password';
+const LEGACY_REMEMBER_PASSWORD_CHOICE_KEY = 'iir2026-chair-hub-remember-password';
 
 try {
-  if (localStorage.getItem(REMEMBER_PASSWORD_CHOICE_KEY) === 'off') rememberPasswordInput.checked = false;
-  const rememberedPassword = localStorage.getItem(REMEMBERED_PASSWORD_KEY);
-  if (rememberedPassword) {
+  const rememberChoice = localStorage.getItem(REMEMBER_PASSWORD_CHOICE_KEY)
+    ?? localStorage.getItem(LEGACY_REMEMBER_PASSWORD_CHOICE_KEY);
+  if (rememberChoice !== null) rememberPasswordInput.checked = rememberChoice !== 'off';
+  const rememberedPassword = localStorage.getItem(REMEMBERED_PASSWORD_KEY)
+    ?? (rememberPasswordInput.checked ? localStorage.getItem(LEGACY_REMEMBERED_PASSWORD_KEY) : null);
+  if (rememberedPassword && rememberPasswordInput.checked) {
     passwordInput.value = rememberedPassword;
-    rememberPasswordInput.checked = true;
+    localStorage.setItem(REMEMBERED_PASSWORD_KEY, rememberedPassword);
   }
 } catch { /* Local storage may be disabled by the browser. */ }
 
@@ -424,7 +430,11 @@ document.querySelectorAll('[data-page-link]').forEach((button) => button.addEven
 mainContent.addEventListener('click', (event) => {
   const pdfButton = event.target.closest('[data-open-pdf]');
   if (pdfButton) {
-    openPdf(pdfButton.dataset.openPdf, pdfButton.dataset.pdfTitle, pdfButton);
+    if (/Android/i.test(navigator.userAgent)) {
+      window.location.assign(new URL(pdfButton.dataset.openPdf, document.baseURI).href);
+    } else {
+      openPdf(pdfButton.dataset.openPdf, pdfButton.dataset.pdfTitle, pdfButton);
+    }
     return;
   }
   const scrollControl = event.target.closest('[data-scroll-sessions]');
@@ -626,7 +636,8 @@ document.querySelector('#stageLaunch').addEventListener('click', async () => {
   document.body.classList.add('stage-open');
   updateStage();
   try {
-    if (stage.requestFullscreen && !document.fullscreenElement) await stage.requestFullscreen();
+    const standaloneApp = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    if (!standaloneApp && stage.requestFullscreen && !document.fullscreenElement) await stage.requestFullscreen();
     if (screen.orientation?.lock) await screen.orientation.lock('landscape');
   } catch { /* Full screen or orientation lock may be unavailable on the current device. */ }
 });
@@ -693,4 +704,6 @@ if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.
     });
   }, { once: true });
 }
+
+if (rememberPasswordInput.checked && passwordInput.value) gateForm.requestSubmit();
 

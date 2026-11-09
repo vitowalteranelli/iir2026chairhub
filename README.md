@@ -18,7 +18,7 @@ Lo script genera `content.enc.json` e `papers/paper-<numero>.pdf`. Pubblica ques
 2. In GitHub apri **Settings → Pages**.
 3. Scegli **Deploy from a branch**, seleziona `main` e la cartella `/(root)`, quindi salva.
 
-Le risorse usano percorsi relativi e funzionano anche nell'URL `/nome-repository/` di GitHub Pages. Il sito non invia password o contenuti a un server: la decifratura avviene nel browser dopo l'inserimento della password. Se è attiva l'opzione **Ricorda su questo dispositivo**, la password viene conservata nel local storage del browser; deselezionandola viene rimossa. La web app e i contenuti cifrati vengono memorizzati per l'uso offline; i PDF vengono caricati quando si apre il paper.
+Le risorse usano percorsi relativi e funzionano anche nell'URL `/nome-repository/` di GitHub Pages. Il sito non invia password o contenuti a un server: la decifratura avviene nel browser dopo l'inserimento della password. Se è attiva l'opzione **Ricorda su questo dispositivo**, la password viene conservata nel local storage del browser sotto una chiave specifica per il percorso di questa app; deselezionandola viene rimossa. La web app e i contenuti cifrati vengono memorizzati per l'uso offline; i PDF vengono caricati quando si apre il paper.
 
 Una volta pubblicato in HTTPS, su Android apri l'indirizzo con Chrome e usa **Installa app** dal menu del browser. Su iPhone apri l'indirizzo con Safari, tocca **Condividi → Aggiungi alla schermata Home**, lascia attiva l'opzione per aprirla come app web e conferma con **Aggiungi**. L'app appare con il nome **IIR2026 Chair Hub**.
 

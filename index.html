@@ -14,8 +14,8 @@
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="./apple-touch-icon.png">
     <link rel="manifest" href="./manifest.webmanifest">
-    <link rel="stylesheet" href="styles.css?v=20261109-9">
-    <script src="app.js?v=20261109-8" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20261109-11">
+    <script src="app.js?v=20261109-12" defer></script>
   </head>
   <body>
     <section class="gate" id="gate" aria-labelledby="gateTitle">
@@ -24,10 +24,10 @@
         <p class="eyebrow">Roma · 12–14 novembre 2026</p>
         <h1 id="gateTitle">Chair Hub</h1>
         <p class="gate-copy">Programma, paper e strumenti per la tua sessione.</p>
-        <form id="unlockForm" novalidate>
+        <form id="unlockForm" autocomplete="off" novalidate>
           <label for="passwordInput">Password di accesso</label>
           <div class="password-field">
-            <input id="passwordInput" name="password" type="password" autocomplete="current-password" required autofocus>
+            <input id="passwordInput" name="chairHubUnlock" type="password" autocomplete="off" required autofocus>
             <button class="reveal-password" id="togglePassword" type="button" aria-label="Mostra password">Mostra</button>
           </div>
           <label class="remember-password" for="rememberPassword"><input id="rememberPassword" type="checkbox" checked> <span>Ricorda su questo dispositivo</span></label>

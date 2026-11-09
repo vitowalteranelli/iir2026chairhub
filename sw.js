@@ -1,10 +1,10 @@
-const CACHE_NAME = 'iir2026-chair-hub-v5';
+const CACHE_NAME = 'iir2026-chair-hub-v10';
 const APP_ROOT = new URL('./', self.registration.scope);
 const APP_SHELL = [
   './',
   './index.html',
-  './styles.css?v=20261109-9',
-  './app.js?v=20261109-8',
+  './styles.css?v=20261109-11',
+  './app.js?v=20261109-12',
   './content.enc.json',
   './manifest.webmanifest',
   './favicon.svg',
