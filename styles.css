@@ -315,6 +315,19 @@ body.pdf-viewer-open { overflow: hidden; }
   .session-rail { width: calc(100vw - 24px); margin-right: -12px; }
 }
 
+@media (orientation: landscape) and (max-height: 520px) {
+  .stage { padding: 48px 24px 36px; }
+  .stage::before { inset: 8px; }
+  .stage-brand { top: max(9px, env(safe-area-inset-top)); left: max(14px, env(safe-area-inset-left)); gap: 8px; font-size: 7px; }
+  .official-logo-stage { width: 58px; }
+  .stage-close { top: max(8px, env(safe-area-inset-top)); right: max(14px, env(safe-area-inset-right)); width: 32px; height: 32px; }
+  .stage-center { width: min(100%, 1100px); }
+  .stage-kicker { margin-bottom: clamp(4px, 1.4vh, 9px); font-size: clamp(10px, 2.5vh, 15px); line-height: 1.2; }
+  .stage-clock { font-size: clamp(92px, 32vh, 200px); line-height: .87; }
+  .stage-message { margin-top: clamp(5px, 1.6vh, 10px); font-size: clamp(17px, 4.4vh, 25px); line-height: 1.05; }
+  .stage-footer { bottom: max(8px, env(safe-area-inset-bottom)); font-size: 7px; letter-spacing: .15em; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
